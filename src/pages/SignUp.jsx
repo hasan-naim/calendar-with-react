@@ -1,16 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import toast from "react-hot-toast";
 
 function SignUp() {
+  const { signIn } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [btnState, setBtnState] = useState(false);
+
+  const navigate = useNavigate();
   /// submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setBtnState(true);
+    try {
+      const { user } = await signIn(email, pass);
+      toast.success("You are successfully Signd in!");
+      navigate("/");
+      setBtnState(false);
+    } catch (err) {
+      toast.error(err.message);
+      setBtnState(false);
+    }
+
+    console.log(email, pass);
   };
   return (
     <div>
       <div className="mt-12 rounded-lg max-w-lg mx-auto shadow-md p-8 bg-white">
         <h2 className="my-6 text-center text-xl lg:text-4xl text-slate-800 font-bold">
-          Login
+          Sign Up
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -21,11 +43,13 @@ function SignUp() {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               id="first_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -41,6 +65,8 @@ function SignUp() {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Password"
               required
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
             />
           </div>
           <div>
