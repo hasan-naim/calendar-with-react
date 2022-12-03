@@ -15,7 +15,6 @@ function CalendarHeader() {
 
   return (
     <header className="flex px-4 py-2 items-center">
-      <h2 className="text-xl font-bold  text-slate-700 mr-10">Calendar</h2>
       <button
         className="mr-5 px-4 py-2 rounded border"
         onClick={() => setMonthIndex(dayjs().month())}
