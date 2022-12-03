@@ -5,11 +5,13 @@ function Navbar() {
   return (
     <nav className="py-2 bg-white sticky shadow-md w-full">
       <div className="container flex justify-between items-center">
-        <h2 className="text-xl font-bold  text-slate-700 mr-10">Calendar</h2>
+        <Link to={"/"} className="text-xl font-bold  text-slate-700 mr-10">
+          Calendar
+        </Link>
         <div>
           <Link
             to="/login"
-            className="bg-blue-500 text-xl font-medium text-white px-4 py-1 rounded hover:bg-transparent hover:text-blue-500 duration-300 border-2 border-blue-500 block"
+            className="bg-blue-700 text-xl font-medium text-white px-4 py-1 rounded hover:bg-transparent hover:text-blue-700 duration-300 border-2 border-blue-700 block"
           >
             {" "}
             Login{" "}
